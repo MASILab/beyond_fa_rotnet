@@ -1,10 +1,6 @@
 # RotNet-FA-Image
 
-## Needs a Docker!!
-
 ## Overview
-
-Your goal as a team in the Beyond FA Challenge is to create a Docker to extract useful features of our testing images. Your input will be a .mha image and a .json file to represent bvals/bvecs (scripts to convert your training data are included in this repo)
 
 RotNet-FA-Image is a Python-based deep learning project for predicting rotation angles of fractional anisotropy (FA) maps derived from NIfTI (.nii.gz) files. It leverages 3D convolutional neural networks (CNNs) implemented in PyTorch to regress rotation angles. The augmented data helps us extract meaningful features from the input data.
 
@@ -15,7 +11,36 @@ Original RotNet repo: https://github.com/d4nst/RotNet
 - CUDA version: 12.2
 - GPU: NVIDIA RTX A4000
 
-## Installation
+## Building the Docker
+
+The Docker container is set up using the provided `Dockerfile`. To build the Docker container, clone the repository and run the following command in the root directory:
+
+```bash
+DOCKER_BUILDKIT=1 sudo docker build -t beyondfa_vine:v1.1.3 .
+```
+
+The Docker runs the code from `scripts/entrypoint.sh`.
+
+## Running the Docker
+
+Your Docker container reads input data from `/input` and writes output data to `/output`. The input should be a .mha image and a .json file containing bvals/bvecs information.
+
+To run this Docker:
+
+```bash
+input_dir=".../input_data"
+output_dir=".../output_data"
+
+mkdir -p $output_dir
+sudo chmod 777 $output_dir
+
+sudo docker run --rm \
+    -v $input_dir:/input \
+    -v $output_dir:/output \
+    beyondfa_vine:v1.1.3
+```
+
+## Local Development Setup
 ```
 # Create and activate a new conda environment
 conda create -n isbi_challenge python=3.10 -y
