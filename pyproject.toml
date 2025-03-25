@@ -1,0 +1,21 @@
+[project]
+name = "rotnet-fa-baseline"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.10"
+dependencies = [
+	"numpy<2.0.0",
+	"scipy",
+	"nibabel",
+	"matplotlib",
+	"tqdm",
+	"six",
+	"simpleitk>=2.4.1",
+	"torch==2.1.0+cpu",
+	"torchvision==0.16.0+cpu",
+	"torchaudio==2.1.0+cpu",
+]
+
+
+
